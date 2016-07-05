@@ -63,6 +63,8 @@ enum parse_token_type_t {
     parse_token_type_pipe,
     parse_token_type_redirection,
     parse_token_type_background,
+    parse_token_type_logical_and,
+    parse_token_type_logical_or,
     parse_token_type_end,
 
     // Special terminal type that means no more tokens forthcoming.
