@@ -13,8 +13,8 @@ using namespace parse_productions;
 
 // Herein are encoded the productions for our LL2 fish grammar.
 //
-// Each symbol (e.g. symbol_job_list) has a corresponding function (e.g. resolve_job_lits). The
-// function accepts two tokens, representing the first and second lookahead, and returns returns a
+// Each symbol (e.g. symbol_job_list) has a corresponding function (e.g. resolve_job_list). The
+// function accepts two tokens, representing the first and second lookahead, and returns a
 // production representing the rule, or NULL on error. There is also a tag value which is returned
 // by reference; the tag is a sort of node annotation.
 //
@@ -62,6 +62,10 @@ RESOLVE(job_list) {
         case parse_token_type_redirection:
         case parse_token_type_background: {
             return &normal;
+        }
+        case parse_token_type_logical_and:
+        case parse_token_type_logical_or: {
+            return &list_end;
         }
         case parse_token_type_end: {
             return &empty_line;
@@ -449,6 +453,8 @@ const production_t *parse_productions::production_for_token(parse_token_type_t n
         case parse_token_type_pipe:
         case parse_token_type_redirection:
         case parse_token_type_background:
+        case parse_token_type_logical_and:
+        case parse_token_type_logical_or:
         case parse_token_type_end:
         case parse_token_type_terminate: {
             fprintf(stderr, "Terminal token type %ls passed to %s\n",
