@@ -20,6 +20,8 @@ enum token_type {
     TOK_REDIRECT_FD,      /// redirection to new fd token
     TOK_REDIRECT_NOCLOB,  /// redirection token
     TOK_BACKGROUND,       /// send job to bg token
+    TOK_LOGICAL_AND,      /// logical AND operation
+    TOK_LOGICAL_OR,       /// logical OR operation
     TOK_COMMENT           /// comment token
 };
 
