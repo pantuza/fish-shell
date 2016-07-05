@@ -56,6 +56,8 @@ const wchar_t *const token_type_map[] = {
     L"parse_token_type_pipe",
     L"parse_token_type_redirection",
     L"parse_token_type_background",
+    L"parse_token_type_logical_and",
+    L"parse_token_type_logical_or",
     L"parse_token_type_end",
     L"parse_token_type_terminate",
     L"parse_special_type_parse_error",
@@ -234,6 +236,12 @@ static wcstring token_type_user_presentable_description(
         case parse_token_type_background: {
             return L"a '&'";
         }
+        case parse_token_type_logical_and: {
+            return L"logical AND operation '&&'";
+        }
+        case parse_token_type_logical_or: {
+            return L"logical OR operation '||'";
+        }
         case parse_token_type_end: {
             return L"end of the statement";
         }
@@ -307,6 +315,14 @@ static inline parse_token_type_t parse_token_type_from_tokenizer_token(
         }
         case TOK_BACKGROUND: {
             result = parse_token_type_background;
+            break;
+        }
+        case TOK_LOGICAL_AND: {
+            result = parse_token_type_logical_and;
+            break;
+        }
+        case TOK_LOGICAL_OR: {
+            result = parse_token_type_logical_or;
             break;
         }
         case TOK_REDIRECT_OUT:
@@ -862,6 +878,8 @@ static bool type_is_terminal_type(parse_token_type_t type) {
         case parse_token_type_pipe:
         case parse_token_type_redirection:
         case parse_token_type_background:
+        case parse_token_type_logical_and:
+        case parse_token_type_logical_or:
         case parse_token_type_end:
         case parse_token_type_terminate: {
             return true;
@@ -1552,6 +1570,245 @@ enum parse_bool_statement_type_t parse_node_tree_t::statement_boolean_type(
 bool parse_node_tree_t::job_should_be_backgrounded(const parse_node_t &job) const {
     assert(job.type == symbol_job);
     const parse_node_t *opt_background = get_child(job, 2, symbol_optional_background);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     bool result = opt_background != NULL && opt_background->tag == parse_background;
     return result;
 }
