@@ -542,12 +542,20 @@ void tokenizer_t::tok_next() {
         case L'&': {
             this->last_type = TOK_BACKGROUND;
             this->buff++;
+            if(*this->buff == L'&') {
+                this->last_type = TOK_LOGICAL_AND;
+                this->buff++;
+            }
             break;
         }
         case L'|': {
             this->last_token = L"1";
             this->last_type = TOK_PIPE;
             this->buff++;
+            if(*this->buff == L'&') {
+                this->last_type = TOK_LOGICAL_OR;
+                this->buff++;
+            }
             break;
         }
         case L'>':
